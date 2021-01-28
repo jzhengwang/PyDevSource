@@ -1,0 +1,52 @@
+# This is a sample Python script.
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+import sys
+import threading
+import time as ti  # This to handle the time and datetime cannot used at the same time
+from datetime import *
+import logging
+
+new_date_time = datetime.now()
+date_only = '{0:%Y-%m-%d}'.format(new_date_time)
+time_only = '{:%H:%M:%S}'.format(new_date_time)
+logging_format = '%(asctime)-15s %(message)s'
+sys_logging_file = "../dbg_log/system_log_in_" + date_only + '_' + time_only
+logging.basicConfig(filename=sys_logging_file,
+                    level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(threadName)-10s %(message)s', )
+
+# logging.basicConfig(filename=sys_logging_file, encoding='utf-8', level=logging.DEBUG)
+# logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+############################################################
+# The bellow are local implement python package
+# class, etc.
+#############################################################
+
+import CommonUtils.time_update_thread as time_update_thread
+import TcpIpUtil.tcp_socket_client_thread as tcp_socket_client_thread
+import TcpIpUtil.tcp_socket_server_thread as tcp_socket_server_thread
+from CommonUtils import dbg_logging_util
+
+if __name__ == '__main__':
+    dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
+    main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
+    main_logging.dbg_logging('INFO::Python %s on %s' % (sys.version, sys.platform))
+    # creating thread
+    new_date_time = datetime.now()
+    date_only = '{0:%Y-%m-%d}'.format(new_date_time)
+    time_only = '{:%H:%M:%S}'.format(new_date_time)
+    current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
+    tcp_server_obj = tcp_socket_server_thread.TcpServerUtil(6553, '127.0.0.1', 'IPV4', main_logging)
+    tcp_client_obj = tcp_socket_client_thread.TcpClientUtil(6553, '127.0.0.1', 'IPV4', 'test_client', main_logging)
+    tcp_sever_thread = threading.Thread(target=tcp_server_obj.tcp_sever_thread, args=("TcpSever",))
+    tcp_client_thread = threading.Thread(target=tcp_client_obj.tcp_client_thread, args=("TcpClient",))
+    tcp_sever_thread.start()
+    tcp_client_thread.start()
+    tcp_sever_thread.join()
+    tcp_client_thread.join()
+while True:
+    ti.sleep(5)
+    main_logging.dbg_logging("INFO::{name} runs".format(name=__name__))
