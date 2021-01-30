@@ -11,25 +11,18 @@ import logging
 new_date_time = datetime.now()
 date_only = '{0:%Y-%m-%d}'.format(new_date_time)
 time_only = '{:%H:%M:%S}'.format(new_date_time)
-logging_format = '%(asctime)-15s %(message)s'
-sys_logging_file = "../dbg_log/system_log_in_" + date_only + '_'+time_only
-logging.basicConfig(filename=sys_logging_file,
-                    level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(threadName)-10s %(message)s', )
-
-# logging.basicConfig(filename=sys_logging_file, encoding='utf-8', level=logging.DEBUG)
-# logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 ############################################################
 # The bellow are local implement python package
 # class, etc.
 #############################################################
-from CommonUtils import dbg_logging_util
-from AmcMathContest.amc_contest_main import initial_amc_test_thread
-from CommonUtils.gui_utility_functions import GuiUtility
-from CommonUtils.misc_utility_functions import TerminalFunctionApi
-from CommonUtils.time_update_thread import initial_clock_thread
-from TestCodePrj.data_types_test_code import print_logo
+from common_utils import dbg_logging_util
+from math_contest_util.amc_contest_main import initial_amc_test_thread
+from common_utils.gui_utility_functions import GuiUtility
+from common_utils.misc_utility_functions import TerminalFunctionApi
+from common_utils.time_update_thread import initial_clock_thread
+from test_code_stub.data_types_test_code import print_logo
+
 
 def start_up_print(pos, timeout):
     tot_run_sec = 0.0
@@ -49,7 +42,7 @@ def start_up_print(pos, timeout):
             break
 
 
-if __name__ == '__main__':
+def main():
     dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
     main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
     term_object = TerminalFunctionApi()
@@ -70,5 +63,9 @@ if __name__ == '__main__':
     task_thread.start()
     clock_thread.join()
     task_thread.join()
-while True:
-    ti.sleep(1)
+    while True:
+        ti.sleep(1)
+
+
+if __name__ == '__main__':
+    main()

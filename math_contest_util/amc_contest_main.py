@@ -1,8 +1,8 @@
 import time as ti
 
-from CommonUtils.url_utility_functions import UrlLinkUtility
-import CommonUtils.dbg_logging_util as dbg_logging_util
-from CommonUtils.gui_utility_functions import GuiUtility
+from common_utils.url_utility_functions import UrlLinkUtility
+import common_utils.dbg_logging_util as dbg_logging_util
+from common_utils.gui_utility_functions import GuiUtility
 
 amc_math_wiki_link = ('https://artofproblemsolving.com', 'https://artofproblemsolving.com/wiki/index.php/')
 

@@ -25,12 +25,13 @@ logging.basicConfig(filename=sys_logging_file,
 # class, etc.
 #############################################################
 
-import CommonUtils.time_update_thread as time_update_thread
-import TcpIpUtil.tcp_socket_client_thread as tcp_socket_client_thread
-import TcpIpUtil.tcp_socket_server_thread as tcp_socket_server_thread
-from CommonUtils import dbg_logging_util
+import common_utils.time_update_thread as time_update_thread
+import tcp_ip_util.tcp_socket_client_thread as tcp_socket_client_thread
+import tcp_ip_util.tcp_socket_server_thread as tcp_socket_server_thread
+from common_utils import dbg_logging_util
 
-if __name__ == '__main__':
+
+def main():
     dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
     main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
     main_logging.dbg_logging('INFO::Python %s on %s' % (sys.version, sys.platform))
@@ -47,6 +48,10 @@ if __name__ == '__main__':
     tcp_client_thread.start()
     tcp_sever_thread.join()
     tcp_client_thread.join()
-while True:
-    ti.sleep(5)
-    main_logging.dbg_logging("INFO::{name} runs".format(name=__name__))
+    while True:
+        ti.sleep(5)
+        main_logging.dbg_logging("INFO::{name} runs".format(name=__name__))
+
+
+if __name__ == '__main__':
+    main()

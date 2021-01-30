@@ -4,7 +4,7 @@ import time as ti  # This to handle the time and datetime cannot used at the sam
 from datetime import *
 import socket
 
-import CommonUtils.dbg_logging_util as dbg_logging_util
+import common_utils.dbg_logging_util as dbg_logging_util
 
 class TcpServerUtil:
     def __init__ ( self, port, ip_addr, ip_protocol, logging):

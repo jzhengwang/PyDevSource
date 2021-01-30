@@ -3,7 +3,7 @@ import threading
 import time as ti  # This to handle the time and datetime cannot used at the same time
 from datetime import *
 
-import CommonUtils.dbg_logging_util as dbg_logging_util
+import common_utils.dbg_logging_util as dbg_logging_util
 
 
 class ClockThreadUtil:
