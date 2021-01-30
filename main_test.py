@@ -23,8 +23,10 @@ from common_utils.misc_utility_functions import TerminalFunctionApi
 from common_utils.time_update_thread import initial_clock_thread
 from test_code_stub.data_types_test_code import print_logo
 
+term_object = TerminalFunctionApi()
 
-def start_up_print(pos, timeout):
+
+def start_up_print ( pos, timeout ):
     tot_run_sec = 0.0
     side_limit = 100
     mov_dir = 1
@@ -42,7 +44,7 @@ def start_up_print(pos, timeout):
             break
 
 
-def main():
+def main ():
     dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
     main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
     term_object = TerminalFunctionApi()
