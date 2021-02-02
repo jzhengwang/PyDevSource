@@ -17,7 +17,7 @@ import requests
 os_name = platform.system()
 if os_name == "Windows":
     from docx import Document
-    from docx.shared import Inches
+    #from docx.shared import Inches
     from pypandoc import *
 
 from bs4 import BeautifulSoup
