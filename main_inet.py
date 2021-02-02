@@ -6,19 +6,6 @@ import sys
 import threading
 import time as ti  # This to handle the time and datetime cannot used at the same time
 from datetime import *
-import logging
-
-new_date_time = datetime.now()
-date_only = '{0:%Y-%m-%d}'.format(new_date_time)
-time_only = '{:%H:%M:%S}'.format(new_date_time)
-logging_format = '%(asctime)-15s %(message)s'
-sys_logging_file = "../dbg_log/system_log_in_" + date_only + '_' + time_only
-logging.basicConfig(filename=sys_logging_file,
-                    level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(threadName)-10s %(message)s', )
-
-# logging.basicConfig(filename=sys_logging_file, encoding='utf-8', level=logging.DEBUG)
-# logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 ############################################################
 # The bellow are local implement python package
