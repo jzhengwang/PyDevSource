@@ -6,15 +6,15 @@ dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_"
 new_date_time = datetime.now()
 date_only = '{0:%Y-%m-%d}'.format(new_date_time)
 time_only = '{:%H:%M:%S}'.format(new_date_time)
-current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
+current_date = "LCD Screen Simulator: {date} Time:{time}".format(date=date_only, time=time_only)
 
 
 class SMBus:
     def __init__(self, io_addr):
         self.addr = io_addr
         self.logging = DbgUtilityApi('DEBUG', 'main', dbg_log_name)
-        self.lcd_gui = GuiUtility("Welcome", "Arial Bold", 0, 20, 0, "0x0", self.logging)
-        self.lcd_gui.open_info_window(current_date, 0)
+        self.lcd_gui = GuiUtility(current_date, "Arial Bold", 20, 20, 10, "400x80", self.logging)
+        self.lcd_gui.open_info_window("Hello World!", 0)
         self.cmd = 0
         self.data = 0
 

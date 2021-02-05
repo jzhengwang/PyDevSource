@@ -26,7 +26,7 @@ def main():
     time_only = '{:%H:%M:%S}'.format(new_date_time)
     current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
     main_i2c_lcd = i2c_lcd_api.initial_lcd_thread(current_date)
-    main_i2c_lcd.lcd_blink_text("Hello World")
+    main_i2c_lcd.lcd_blink_text("Welcome to LCD World!")
     while True:
         pass
 

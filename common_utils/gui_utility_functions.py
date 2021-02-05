@@ -22,7 +22,7 @@ class GuiUtility:
     window: tk
 
     def __init__(self, title_name, text_font, text_size, col, row, win_size, logging):
-        self.WinTitle = title_name
+        self.WinTitle = title_name  # Window title name
         self.font = (text_font, text_size)
         self.gridCol = col
         self.gridRow = row
@@ -67,7 +67,7 @@ class GuiUtility:
     # This window will close by itself depends on the timeout, if timeout is 0, then user close needed
     def open_info_window(self, message, timeout):
         self.window = tk.Tk()
-        self.window.geometry("")  # Let Tk to auto-size the window
+        self.window.geometry(self.window_size)  # Let Tk to auto-size the window
         self.window.title(self.WinTitle)
         lbl = Label(self.window, text=message, font=self.font)
         lbl.grid(column=self.gridCol, row=self.gridRow)
