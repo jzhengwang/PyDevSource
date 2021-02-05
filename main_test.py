@@ -8,10 +8,6 @@ import time as ti  # This to handle the time and datetime cannot used at the sam
 from datetime import *
 import logging
 
-new_date_time = datetime.now()
-date_only = '{0:%Y-%m-%d}'.format(new_date_time)
-time_only = '{:%H:%M:%S}'.format(new_date_time)
-
 ############################################################
 # The bellow are local implement python package
 # class, etc.
