@@ -2,6 +2,7 @@ import time as ti
 from time import *
 from common_utils.gui_utility_functions import GuiUtility
 from io_driver_apis import i2c_lcd_driver
+from io_driver_apis import lcd_driver_util
 from common_utils import dbg_logging_util
 
 
@@ -9,7 +10,7 @@ class lcd_device_util:
     def __init__(self, dev_name, logging):
         self.io_name = dev_name
         self.logging = logging
-        self.io_device = i2c_lcd_driver.lcd()
+        self.io_device = lcd_driver_util.lcd()
 
     ###########################
     #   WRITE TO THE DISPLAY  #
