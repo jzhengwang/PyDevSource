@@ -1,4 +1,5 @@
 import time as ti
+from io_driver_apis.i2c_lcd_driver import *
 
 # commands
 LCD_CLEARDISPLAY = 0x01

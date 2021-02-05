@@ -1,5 +1,5 @@
+
 import time as ti
-from time import *
 from common_utils.gui_utility_functions import GuiUtility
 from io_driver_apis import i2c_lcd_driver
 from io_driver_apis import lcd_driver_util
@@ -33,8 +33,8 @@ class lcd_device_util:
     #                  PRINT THE DATE AND TIME                        #
     ###################################################################
     def lcd_display_time(self):
-        self.io_device.lcd_display_string("Time: %s" % time.strftime("%H:%M:%S"), 1)
-        self.io_device.lcd_display_string("Date: %s" % time.strftime("%m/%d/%Y"), 2)
+        self.io_device.lcd_display_string("Time: %s" % ti.strftime("%H:%M:%S"), 1)
+        self.io_device.lcd_display_string("Date: %s" % ti.strftime("%m/%d/%Y"), 2)
 
     def lcd_scroll_text(self, b_continue, b_left2right):
         str_pad = " " * 16
@@ -45,7 +45,7 @@ class lcd_device_util:
             for i in range(0, len(my_long_string)):
                 lcd_text = my_long_string[i:(i + 16)]
                 self.io_device.lcd_display_string(lcd_text, 1)
-                sleep(0.4)
+                ti.sleep(0.4)
                 self.io_device.lcd_display_string(str_pad, 1)
 
 
