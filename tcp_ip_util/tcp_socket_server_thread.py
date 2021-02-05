@@ -6,8 +6,9 @@ import socket
 
 import common_utils.dbg_logging_util as dbg_logging_util
 
+
 class TcpServerUtil:
-    def __init__ ( self, port, ip_addr, ip_protocol, logging):
+    def __init__(self, port, ip_addr, ip_protocol, logging):
         self.ip_addr = ip_addr
         self.svr_port = port
         self.localhost = '127.0.0.1'
@@ -28,7 +29,7 @@ class TcpServerUtil:
                 th_id = threading.Thread(target=self.tcp_server_tx_data_thread, args=(conn, client_ip))
                 self.client_tx_th.append(th_id)
 
-    def tcp_server_rx_data_thread( self, data_sock, client_ip ):
+    def tcp_server_rx_data_thread(self, data_sock, client_ip):
         self.logging.dbg_logging('INFO::Connected by {client}, pending rcv data'.format(client=client_ip))
         with data_sock:
             while True:
@@ -37,7 +38,7 @@ class TcpServerUtil:
                     break
                 self.logging.dbg_logging('INFO::Received data from {client}'.format(client=client_ip))
 
-    def tcp_server_tx_data_thread( self, data_sock, client_ip ):
+    def tcp_server_tx_data_thread(self, data_sock, client_ip):
         self.logging.dbg_logging('INFO::Connected by {client}, pending rcv data'.format(client=client_ip))
         with data_sock:
             while True:
