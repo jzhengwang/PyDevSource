@@ -1,16 +1,10 @@
-import platform
 import docx
 import PyPDF2
 import os
 import errno
 import docx
 import docx2txt
-import odf
-import nltk  ##http://www.nltk.org/nltk_data/
-import re
 import io
-import zipfile
-import math
 
 #################################################################
 # print: format reference:
@@ -22,21 +16,17 @@ from docx import *
 from PyPDF2 import *
 from nltk.tokenize import word_tokenize
 
-os_name = platform.system()
-print(os_name)
-if os_name == "Linux":
-    import odf
+from python_port_apis.platform_util_functions import platform_util
+
+cur_platform = platform_util()
+if cur_platform.is_platform_linux():
     from odf import *
     from odf import teletype
     from odf.opendocument import load
 
-# ../testdocs/MathAmc202012AProblems.docx
-# "../../MathAmc202012AProblems.docx"
-from pip._vendor.html5lib.treebuilders.etree_lxml import Document
-
 
 class QuizProblem:
-    def __init__ ( self, question_text, score, correct_ans, given_answer, multi_choice_list, image_file_list ):
+    def __init__(self, question_text, score, correct_ans, given_answer, multi_choice_list, image_file_list):
         self.Question = question_text
         self.Score = score
         self.Answer = correct_ans
@@ -44,18 +34,18 @@ class QuizProblem:
         self.LImages = image_file_list
         self.GivenAnswer = given_answer
 
-    def check_answer ( self ):
+    def check_answer(self):
         if self.Answer == self.GivenAnswer:
             return True
         else:
             return False
 
-    def get_question_score ( self ):
+    def get_question_score(self):
         return self.Score
 
 
 class MathQuizProblem(QuizProblem):  # inherent and override
-    def question_solution ( self, Solution1, Solution2, Solution3, Solution4, Solution5 ):
+    def question_solution(self, Solution1, Solution2, Solution3, Solution4, Solution5):
         self.Solution_List = [
             Solution1,
             Solution2,
@@ -65,11 +55,11 @@ class MathQuizProblem(QuizProblem):  # inherent and override
         ]
         self.GivenSolution = None
 
-    def select_solution ( self, GivenSolution ):
+    def select_solution(self, GivenSolution):
         self.GivenSolution = GivenSolution
 
 
-def docx2word_process ( Document ):
+def docx2word_process(Document):
     total_problems = 0
     math_test = []
     for paragraph in Document.paragraphs:
@@ -80,7 +70,7 @@ def docx2word_process ( Document ):
     print("Total number of math problems : %d", total_problems)
 
 
-def docx_questions ( fileName ):
+def docx_questions(fileName):
     # docfile = docx.opendocx(fileName)
     document = docx.Document(fileName)
     # docx2word_process(document)
@@ -120,13 +110,13 @@ def docx_questions ( fileName ):
     print("You got %d corrects out of %d questions" % (total_correct, total_correct))
 
 
-def find_pdf_token ( text_str ):
+def find_pdf_token(text_str):
     ##nltk.download('punkt')
     tokens = word_tokenize(text_str)
     print(tokens)
 
 
-def pdf_question_file ( filesName ):
+def pdf_question_file(filesName):
     pdfName = filesName
     pdfFileObj = open(pdfName, 'rb')
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
@@ -138,7 +128,7 @@ def pdf_question_file ( filesName ):
             find_pdf_token(line)
 
 
-def odf_question_file ( filesName ):
+def odf_question_file(filesName):
     textdoc = load(filesName)
     # allparas = textdoc.getElementsByType()
     allText = teletype.extractText(textdoc.body)

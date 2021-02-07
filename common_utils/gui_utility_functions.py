@@ -6,12 +6,9 @@
 #   3)  When the main window is created add a number of widgets to it.
 #   4)  Implement the function trigger on the widgets.
 ########################################################################
-import platform
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-
-os_name = platform.system()
 
 
 def message_box_only(title, message):
@@ -84,6 +81,14 @@ class GuiUtility:
         butts = self.create_buttons(self.window, button_texts, ent_dict)
         self.window.mainloop()
         return self.entries_dict
+
+    # This window will close after it get the entry data
+    def open_text_widget(self, widget_texts):
+        self.window = tk.Tk()
+        text_w = tk.Text(self.window, height=10, width=30)
+        text_w.pack()
+        text_w.insert(tk.END, widget_texts)
+        self.window.mainloop()
 
     def close_this_window(self):
         frame = Frame(self.window)

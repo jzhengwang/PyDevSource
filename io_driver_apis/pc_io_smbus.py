@@ -14,7 +14,7 @@ class SMBus:
         self.addr = io_addr
         self.logging = DbgUtilityApi('DEBUG', 'main', dbg_log_name)
         self.lcd_gui = GuiUtility(current_date, "Arial Bold", 20, 20, 10, "400x80", self.logging)
-        self.lcd_gui.open_info_window("Hello World!", 0)
+        self.lcd_gui.open_text_widget("Hello World!")
         self.cmd = 0
         self.data = 0
 

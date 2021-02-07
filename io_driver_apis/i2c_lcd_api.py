@@ -1,9 +1,11 @@
-
 import time as ti
-from common_utils.gui_utility_functions import GuiUtility
-from io_driver_apis import i2c_lcd_driver
 from io_driver_apis import lcd_driver_util
-from common_utils import dbg_logging_util
+from python_port_apis import platform_util_functions
+
+cur_platform = platform_util_functions.platform_util()
+
+if cur_platform.is_platform_pc():
+    from common_utils import dbg_logging_util
 
 
 class lcd_device_util:
@@ -48,9 +50,22 @@ class lcd_device_util:
                 ti.sleep(0.4)
                 self.io_device.lcd_display_string(str_pad, 1)
 
+    def lcd_thread(self, arg0, arg1):
+        while True:
+            ti.sleep(1)
+            new_date_time = datetime.now()
+            date_only = '{0:%Y-%m-%d}'.format(new_date_time)
+            time_only = '{:%H:%M:%S}'.format(new_date_time)
+            current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
+            if cur_platform.is_platform_pc():
+                self.logging.dbg_logging("INFO::{thread_name}:".format(thread_name=arg1) + current_date)
+
 
 def initial_lcd_thread(cur_time):
-    dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
-    lcd_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'AMC', dbg_log_name)
-    lcd_logging.dbg_set_level("DEBUG", 0)
+    if cur_platform.is_platform_pc():
+        dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
+        lcd_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'AMC', dbg_log_name)
+        lcd_logging.dbg_set_level("DEBUG", 0)
+    else:
+        lcd_logging = 0
     return lcd_device_util("rock64", lcd_logging)

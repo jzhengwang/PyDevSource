@@ -1,28 +1,18 @@
-import platform
 import os
-import errno
 import urllib
-import urllib3
 import webbrowser
 from urllib.request import urlopen
-import pypandoc
-import bs4
 import requests
+from bs4 import BeautifulSoup
+
+from python_port_apis import platform_util_functions
 
 ##############################################################################
 # webbrowser.open(url_name)
 # webbrowser.open('http://www.duckduckgo.com')
 ##############################################################################
-
-os_name = platform.system()
-if os_name == "Windows":
-    from docx import Document
-    #from docx.shared import Inches
-    from pypandoc import *
-
-from bs4 import BeautifulSoup
-
-if os_name == "Windows":
+cur_platform = platform_util_functions.platform_util()
+if cur_platform.is_platform_windows():
     url_link_dbg_fle = ('..\dbgtestdocs\webtext0.txt', '..\dbgtestdocs\webtext.txt1')
 else:
     url_link_dbg_fle = ('../dbgtestdocs/webtext0.txt', '../dbgtestdocs/webtext.txt1')
