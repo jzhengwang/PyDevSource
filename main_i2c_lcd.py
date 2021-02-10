@@ -2,11 +2,8 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-import sys
-import threading
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
-import logging
+from python_port_apis import date_time_util_functions
+from python_port_apis import platform_util_functions
 
 ############################################################
 # The bellow are local implement python package
@@ -14,14 +11,19 @@ import logging
 #############################################################
 from common_utils import dbg_logging_util
 from io_driver_apis import i2c_lcd_api
+from python_port_apis.date_time_util_functions import current_time_now
 
 
 def main():
-    dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
-    main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
-    main_logging.dbg_logging('INFO::Python %s on %s' % (sys.version, sys.platform))
+    cur_platform = platform_util_functions.platform_util()
+    if cur_platform.is_platform_pc():
+        dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
+        main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
+        sys_platform, sys_version = cur_platform.get_node_sys_info()
+        main_logging.dbg_logging('INFO::Python %s on %s' % (sys_version, sys_platform))
+    print("Start in python:{version} in {hw_platform}".format( version=cur_platform.get_python_version(), hw_platform=cur_platform.get_cpu_name()))
     # creating thread
-    new_date_time = datetime.now()
+    new_date_time = current_time_now()
     date_only = '{0:%Y-%m-%d}'.format(new_date_time)
     time_only = '{:%H:%M:%S}'.format(new_date_time)
     current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)

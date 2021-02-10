@@ -1,6 +1,8 @@
 import time as ti
-from io_driver_apis.i2c_lcd_driver import *
+from io_driver_apis import i2c_lcd_driver
 
+I2CBUS = 0  # WZ May need change for rock64 , i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
+ADDRESS = 0x3F  # LCD Address, WZ Need change for rock64:
 # commands
 LCD_CLEARDISPLAY = 0x01
 LCD_RETURNHOME = 0x02
@@ -51,7 +53,7 @@ Rs = 0b00000001  # Register select bit
 class lcd:
     # initializes objects and lcd
     def __init__(self):
-        self.lcd_device = i2c_device(ADDRESS)
+        self.lcd_device = i2c_lcd_driver.i2c_device(ADDRESS, I2CBUS)
 
         self.lcd_write(0x03)
         self.lcd_write(0x03)

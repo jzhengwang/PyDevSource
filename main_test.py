@@ -2,17 +2,15 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-import sys
 import threading
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
-import logging
 
 ############################################################
 # The bellow are local implement python package
 # class, etc.
 #############################################################
 from common_utils import dbg_logging_util
+from python_port_apis import platform_util_functions
+from python_port_apis.date_time_util_functions import *
 from math_contest_util.amc_contest_main import initial_amc_test_thread
 from common_utils.gui_utility_functions import GuiUtility
 from common_utils.misc_utility_functions import TerminalFunctionApi
@@ -28,7 +26,7 @@ def start_up_print ( pos, timeout ):
     mov_dir = 1
     while True:
         print_logo(pos, 10)
-        ti.sleep(0.5)
+        sleep_seconds(0.5)
         term_object.clear()
         if pos > side_limit:
             mov_dir = -1
@@ -40,14 +38,16 @@ def start_up_print ( pos, timeout ):
             break
 
 
-def main ():
+def main():
     dbg_log_name = "../dbg_log/dbg{file}log".format(file=__name__).replace("__", "_", -1)
     main_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'main', dbg_log_name)
     term_object = TerminalFunctionApi()
     start_up_print(10, 4)
-    main_logging.dbg_logging('INFO::Python %s on %s' % (sys.version, sys.platform))
+    cur_platform = platform_util_functions.platform_util()
+    sys_platform, sys_version = cur_platform.get_node_sys_info()
+    main_logging.dbg_logging('INFO::Python %s on %s' % (sys_version, sys_platform))
     # creating thread
-    new_date_time = datetime.now()
+    new_date_time = current_time_now()
     date_only = '{0:%Y-%m-%d}'.format(new_date_time)
     time_only = '{:%H:%M:%S}'.format(new_date_time)
     current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
@@ -62,7 +62,7 @@ def main ():
     clock_thread.join()
     task_thread.join()
     while True:
-        ti.sleep(1)
+        sleep_seconds(1)
 
 
 if __name__ == '__main__':

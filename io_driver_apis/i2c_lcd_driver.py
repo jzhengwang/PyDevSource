@@ -14,29 +14,19 @@ Made available under GNU GENERAL PUBLIC LICENSE
 # 2015-02-10, ver 0.1
 
 """
-import os
-import sys
 from time import sleep
-
-# i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
-I2CBUS = 0  # WZ May need change for rock64
-# LCD Address
-ADDRESS = 0x3F  # WZ Need change for rock64
-
-if sys.platform == 'linux' and os.uname().machine == "aarch64":
-    import smbus
-    rock64_platform = True
-else:
-    import io_driver_apis.pc_io_smbus as pc_io_smbus
-    rock64_platform = False
-
+from python_port_apis import platform_util_functions
 
 class i2c_device:
-    def __init__(self, addr, port=I2CBUS):
-        self.addr = addr
-        if rock64_platform:
+    def __init__(self, io_addr, port):
+        self.addr = io_addr
+        self.port = port
+        self.platform = platform_util_functions.platform_util()
+        if self.platform.is_platform_pi():
+            import smbus
             self.bus = smbus.SMBus(port)
-        else:
+        elif self.platform.is_platform_pc():
+            import io_driver_apis.pc_io_smbus as pc_io_smbus
             self.bus = pc_io_smbus.SMBus(port)
 
     # Write a single command

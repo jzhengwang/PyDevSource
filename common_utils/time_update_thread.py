@@ -1,20 +1,17 @@
-import sys
-import threading
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
 
 import common_utils.dbg_logging_util as dbg_logging_util
+from python_port_apis.date_time_util_functions import *
 
 
 class ClockThreadUtil:
     def __init__ ( self, logging_util ):
         self.logging = logging_util
-        self.curTime = datetime.now()
+        self.curTime = current_time_now()
 
     def clock_update_thread ( self, arg0, arg1 ):
         while True:
-            ti.sleep(1)
-            new_date_time = datetime.now()
+            sleep_seconds(1)
+            new_date_time = current_time_now()
             date_only = '{0:%Y-%m-%d}'.format(new_date_time)
             time_only = '{:%H:%M:%S}'.format(new_date_time)
             current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)

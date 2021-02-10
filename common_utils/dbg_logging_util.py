@@ -11,11 +11,10 @@
 # This is wrapper layer to handle all the logging from all the modules and threads
 #####################################################################################################################
 
-import platform
 import os
 import logging
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
+
+from python_port_apis.date_time_util_functions import *
 
 dbg_level_numeric = {'NONE': 0, 'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'ERROR': 40, 'CRITICAL': 50}
 dbg_level_handlers = {
@@ -70,7 +69,7 @@ class DbgUtilityApi:
                 print(str_call)
             msg_text = call_trace[2]
 
-        new_date_time = datetime.now()
-        time_only = '{:%H:%M:%S}'.format(new_date_time)        #date_only = '{0:%Y-%m-%d}'.format(new_date_time)
+        new_date_time = current_time_now()
+        time_only = '{:%H:%M:%S}'.format(current_time_now())        #date_only = '{0:%Y-%m-%d}'.format(new_date_time)
         msg_text = "[DBG::"+time_only+"]" + ':' + logging_list[num_item-1]+"\n"
         self.dbg_file_write(msg_text, False)

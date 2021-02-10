@@ -1,8 +1,7 @@
-import time as ti
-
 from common_utils.url_utility_functions import UrlLinkUtility
 import common_utils.dbg_logging_util as dbg_logging_util
 from common_utils.gui_utility_functions import GuiUtility
+from python_port_apis.date_time_util_functions import *
 
 amc_math_wiki_link = ('https://artofproblemsolving.com', 'https://artofproblemsolving.com/wiki/index.php/')
 
@@ -56,25 +55,25 @@ class MathTestUtil:
         self.gui = test_gui
         self.logging = logging_util
 
-    def create_test_lib ( self, url_name):
+    def create_test_lib(self, url_name):
         self.math_test.build_test_lib(url_name)
 
-    def open_selected_amc_test ( self, test_name ):
+    def open_selected_amc_test(self, test_name ):
         self.math_test.select_amc_test(test_name)
         for question in range(len(self.math_test.question_urls)):
             self.math_test.collect_test_questions(question)
 
-    def show_all_solutions ( self, math_test):
+    def show_all_solutions(self, math_test):
         for sol in self.math_test.solution_urls:
             self.logging.dbg_logging("DEBUG::" + sol)
 
-    def show_all_questions ( self, math_test):
+    def show_all_questions(self, math_test):
         for question in math_test.question_urls:
             self.logging.dbg_logging("DEBUG::" + question)
 
     def amc_contest_thread(self, arg0, arg1):
         while True:
-            ti.sleep(5)
+            sleep_seconds(5)
             self.logging.dbg_logging("INFO::{thread_name}:Start AMC Contest now".format(thread_name=arg1))
 
 
