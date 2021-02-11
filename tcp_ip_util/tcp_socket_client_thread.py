@@ -1,12 +1,9 @@
 # https://www.circuitbasics.com/raspberry-pi-i2c-lcd-set-up-and-programming/
-
-import sys
 import threading
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
 import socket
 
 import common_utils.dbg_logging_util as dbg_logging_util
+from python_port_apis.date_time_util_functions import sleep_seconds
 
 
 class TcpClientUtil:
@@ -28,7 +25,7 @@ class TcpClientUtil:
             th_id = threading.Thread(target=self.tcp_client_rx_data_thread, args=(cli_sock, self.cli_name))
             self.client_rx_th.append(th_id)
         while True:
-            ti.sleep(1)
+            sleep_seconds(1)
 
     def tcp_client_rx_data_thread(self, cli_sock, svr_name):
         with cli_sock:

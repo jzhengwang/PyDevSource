@@ -1,7 +1,4 @@
-# import only system from os
 from os import system, name
-# import sleep to show output for some time period
-from time import sleep
 
 
 class TerminalFunctionApi:
@@ -14,5 +11,6 @@ class TerminalFunctionApi:
         else:
             _ = system('clear')
 
-    def print_hi(self, userName):
+    @staticmethod
+    def print_hi(userName):
         print("Hello " + userName + "! Welcome to PyCharm!")

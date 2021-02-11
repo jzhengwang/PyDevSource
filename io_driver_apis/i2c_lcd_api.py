@@ -1,6 +1,6 @@
-import time as ti
 from io_driver_apis import lcd_driver_util
 from python_port_apis import platform_util_functions
+from python_port_apis.date_time_util_functions import sleep_seconds, current_time_now
 
 cur_platform = platform_util_functions.platform_util()
 
@@ -27,9 +27,9 @@ class lcd_device_util:
     def lcd_blink_text(self, dis_str):
         while True:
             self.io_device.lcd_display_string(dis_str)
-            ti.sleep(1)
+            sleep_seconds(1)
             self.io_device.lcd_clear()
-            ti.sleep(1)
+            sleep_seconds(1)
 
     ###################################################################
     #                  PRINT THE DATE AND TIME                        #
@@ -52,8 +52,8 @@ class lcd_device_util:
 
     def lcd_thread(self, arg0, arg1):
         while True:
-            ti.sleep(1)
-            new_date_time = datetime.now()
+            sleep_seconds(1)
+            new_date_time = current_time_now()
             date_only = '{0:%Y-%m-%d}'.format(new_date_time)
             time_only = '{:%H:%M:%S}'.format(new_date_time)
             current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)

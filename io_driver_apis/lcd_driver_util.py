@@ -1,5 +1,5 @@
-import time as ti
 from io_driver_apis import i2c_lcd_driver
+from python_port_apis.date_time_util_functions import sleep_seconds
 
 I2CBUS = 0  # WZ May need change for rock64 , i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
 ADDRESS = 0x3F  # LCD Address, WZ Need change for rock64:
@@ -69,9 +69,9 @@ class lcd:
     # clocks EN to latch command
     def lcd_strobe(self, data):
         self.lcd_device.write_cmd(data | En | LCD_BACKLIGHT)
-        ti.sleep(.0005)
+        sleep_seconds(.0005)
         self.lcd_device.write_cmd(((data & ~En) | LCD_BACKLIGHT))
-        ti.sleep(.0001)
+        sleep_seconds(.0001)
 
     def lcd_write_four_bits(self, data):
         self.lcd_device.write_cmd(data | LCD_BACKLIGHT)

@@ -1,10 +1,7 @@
-import sys
 import threading
-import time as ti  # This to handle the time and datetime cannot used at the same time
-from datetime import *
 import socket
 from python_port_apis import platform_util_functions
-cur_platform= platform_util_functions.platform_util()
+cur_platform = platform_util_functions.platform_util()
 
 if cur_platform.is_platform_pc():
     import common_utils.dbg_logging_util as dbg_logging_util

@@ -98,11 +98,11 @@ def docx_questions(fileName):
 
     for problem in math_test:
         print(problem.Question)
-        while (True):
+        while True:
             ans = input("Please give your answer(A):") or "A"
             print("Your answer is %s:", ans.capitalize())
-            bContinue = input("Yes / No (Y/N)?")
-            if bContinue.upper() == 'Y':
+            b_continue = input("Yes / No (Y/N)?")
+            if b_continue.upper() == 'Y':
                 break;
         problem.GivenAnswer = ans
         if problem.check_answer():

@@ -1,6 +1,5 @@
 import platform
 import sys
-import os
 
 
 class platform_util:
