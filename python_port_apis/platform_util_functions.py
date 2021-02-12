@@ -5,6 +5,7 @@ import sys
 class platform_util:
     cpu_name: object
     pc_cpu_tuple = ("AMD", "x86_64")
+    pi_cpu_tuple = ("aarch64", "NULL")
 
     def __init__ ( self ):
         self.os_name = platform.uname().system
@@ -16,30 +17,29 @@ class platform_util:
         self.system_ver = sys.version
         self.system_hw = sys.platform
 
-    def is_platform_pi ( self ):
-        if self.cpu_name == "aarch64":
-            return True
-        else:
-            return False
+    def is_platform_pi(self):
+        for cpu_name in self.pi_cpu_tuple:
+            if self.cpu_name == "cpu_name":
+                return True
+        return False
 
-    def is_platform_windows ( self ):
+    def is_platform_windows(self):
         if self.os_name == "Windows":
             return True, self.os_machine
         else:
             return False
 
-    def is_platform_linux ( self ):
+    def is_platform_linux(self):
         if self.os_name == "Linux":
             return True, self.os_machine
         else:
             return False
 
-    def is_platform_pc ( self ):
+    def is_platform_pc(self):
         for cpu_name in self.pc_cpu_tuple:
             if self.cpu_name == cpu_name:
                 return True
-            else:
-                return False
+        return False
 
     def get_node_name ( self ):
         return self.node_name
