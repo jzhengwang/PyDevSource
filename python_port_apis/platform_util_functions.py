@@ -19,7 +19,7 @@ class platform_util:
 
     def is_platform_pi(self):
         for cpu_name in self.pi_cpu_tuple:
-            if self.cpu_name == "cpu_name":
+            if self.cpu_name == cpu_name:
                 return True
         return False
 
