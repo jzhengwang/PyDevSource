@@ -4,7 +4,7 @@ import sys
 
 class platform_util:
     cpu_name: object
-    pc_cpu_tuple = ("AMD", "x86_64")
+    pc_cpu_tuple = ("AMD64", "x86_64")
     pi_cpu_tuple = ("aarch64", "NULL")
 
     def __init__ ( self ):
