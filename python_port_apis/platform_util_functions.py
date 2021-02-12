@@ -4,7 +4,7 @@ import sys
 
 class platform_util:
     cpu_name: object
-
+    pc_cpu_tuple = ("AMD", "x86_64")
     def __init__(self):
         self.os_name = platform.uname().system
         self.os_version = platform.uname().version
@@ -34,10 +34,11 @@ class platform_util:
             return False
 
     def is_platform_pc(self):
-        if self.cpu_name == "AMD64":
-            return True
-        else:
-            return False
+        for cpu_name in self.pc_cpu_tuple:
+            if self.cpu_name == cpu_name:
+                return True
+            else:
+                return False
 
     def get_node_name(self):
         return self.node_name

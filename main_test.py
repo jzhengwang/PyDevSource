@@ -51,7 +51,7 @@ def main():
     date_only = '{0:%Y-%m-%d}'.format(new_date_time)
     time_only = '{:%H:%M:%S}'.format(new_date_time)
     current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
-    main_open_win = GuiUtility("Welcome", "Arial Bold", 0, 20, 0, "0x0", main_logging)
+    main_open_win = GuiUtility("Welcome", "Arial Bold", 0, 20, 0, "400x80", main_logging)
     main_open_win.open_info_window(current_date, 0)
     amc_test_obj = initial_amc_test_thread()
     clock_thread_obj = initial_clock_thread()
