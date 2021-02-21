@@ -47,11 +47,11 @@ class lcd_device_util:
                 self.io_device.lcd_display_string(str_pad, 1)
 
     def lcd_thread(self, arg0, arg1):
+        self.io_device.backlight(arg0)
         while True:
             sleep_seconds(1)
             self.logging.dbg_logging("INFO::{thread_name}:".format(thread_name=arg1))
             self.lcd_display_time()
-
 
 def initial_lcd_thread(cur_time):
     dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
