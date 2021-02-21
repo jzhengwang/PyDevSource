@@ -1,11 +1,7 @@
 from io_driver_apis import lcd_driver_util
 from python_port_apis import platform_util_functions
 from python_port_apis.date_time_util_functions import sleep_seconds, time_string
-
-cur_platform = platform_util_functions.platform_util()
-
-if cur_platform.is_platform_pc():
-    from common_utils import dbg_logging_util
+from common_utils import dbg_logging_util
 
 
 class lcd_device_util:
