@@ -1,6 +1,6 @@
 from io_driver_apis import lcd_driver_util
 from python_port_apis import platform_util_functions
-from python_port_apis.date_time_util_functions import sleep_seconds, current_time_now, time_string
+from python_port_apis.date_time_util_functions import sleep_seconds, time_string
 
 cur_platform = platform_util_functions.platform_util()
 
@@ -58,10 +58,7 @@ class lcd_device_util:
 
 
 def initial_lcd_thread(cur_time):
-    if cur_platform.is_platform_pc():
-        dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
-        lcd_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'AMC', dbg_log_name)
-        lcd_logging.dbg_set_level("DEBUG", 0)
-    else:
-        lcd_logging = 0
+    dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
+    lcd_logging = dbg_logging_util.DbgUtilityApi('DEBUG', 'AMC', dbg_log_name)
+    lcd_logging.dbg_set_level("DEBUG", 0)
     return lcd_device_util("rock64", lcd_logging)
