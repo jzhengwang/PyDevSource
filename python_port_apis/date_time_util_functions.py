@@ -5,7 +5,7 @@ def sleep_seconds(seconds):
     ti.sleep(seconds)
 
 def time_string(str):
-    ti.strftime(str)
+    return ti.strftime(str)
 
 from datetime import *
 

@@ -31,8 +31,8 @@ class lcd_device_util:
     #                  PRINT THE DATE AND TIME                        #
     ###################################################################
     def lcd_display_time(self):
-        self.io_device.lcd_display_string("Time: %s" % time_string("%H:%M:%S"), 1)
-        self.io_device.lcd_display_string("Date: %s" % time_string("%m/%d/%Y"), 2)
+        self.io_device.lcd_display_string("Date: %s" % time_string("%m/%d/%Y"), 1)
+        self.io_device.lcd_display_string("Time: %s" % time_string("%H:%M:%S"), 2)
 
     def lcd_scroll_text(self, b_continue, b_left2right):
         str_pad = " " * 16
