@@ -53,6 +53,7 @@ Rs = 0b00000001  # Register select bit
 class lcd:
     # initializes objects and lcd
     def __init__(self):
+        self.lcd_backlight = LCD_NOBACKLIGHT
         self.lcd_device = i2c_lcd_driver.i2c_device(ADDRESS, I2CBUS)
 
         self.lcd_write(0x03)
@@ -68,13 +69,13 @@ class lcd:
 
     # clocks EN to latch command
     def lcd_strobe(self, data):
-        self.lcd_device.write_cmd(data | En | LCD_BACKLIGHT)
+        self.lcd_device.write_cmd(data | En | self.lcd_backlight)
         sleep_seconds(.0005)
-        self.lcd_device.write_cmd(((data & ~En) | LCD_BACKLIGHT))
+        self.lcd_device.write_cmd(((data & ~En) | self.lcd_backlight))
         sleep_seconds(.0001)
 
     def lcd_write_four_bits(self, data):
-        self.lcd_device.write_cmd(data | LCD_BACKLIGHT)
+        self.lcd_device.write_cmd(data | self.lcd_backlight)
         self.lcd_strobe(data)
 
     # write a command to lcd
@@ -112,9 +113,11 @@ class lcd:
     # define backlight on/off (lcd.backlight(1); off= lcd.backlight(0)
     def backlight(self, state):  # for state, 1 = on, 0 = off
         if state == 1:
-            self.lcd_device.write_cmd(LCD_BACKLIGHT)
+            self.lcd_backlight = LCD_BACKLIGHT
+            self.lcd_device.write_cmd(self.lcd_backlight)
         elif state == 0:
-            self.lcd_device.write_cmd(LCD_NOBACKLIGHT)
+            self.lcd_backlight = LCD_NOBACKLIGHT
+            self.lcd_device.write_cmd(self.lcd_backlight)
 
     # add custom characters (0 - 7)
     def lcd_load_custom_chars(self, fontdata):
