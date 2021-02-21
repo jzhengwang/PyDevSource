@@ -1,7 +1,7 @@
 from io_driver_apis import i2c_lcd_driver
 from python_port_apis.date_time_util_functions import sleep_seconds
 
-I2CBUS = 0  # WZ May need change for rock64 , i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
+I2CBUS = 1  # WZ May need change for rock64 , i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
 ADDRESS = 0x3F  # LCD Address, WZ Need change for rock64:
 # commands
 LCD_CLEARDISPLAY = 0x01

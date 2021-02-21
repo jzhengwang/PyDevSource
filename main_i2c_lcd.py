@@ -1,6 +1,7 @@
 # This is a sample Python script.
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import threading
 
 from python_port_apis import date_time_util_functions
 from python_port_apis import platform_util_functions
@@ -28,7 +29,9 @@ def main():
     time_only = '{:%H:%M:%S}'.format(new_date_time)
     current_date = "Today:{date} Time:{time}".format(date=date_only, time=time_only)
     main_i2c_lcd = i2c_lcd_api.initial_lcd_thread(current_date)
-    main_i2c_lcd.lcd_blink_text("Welcome to LCD World!")
+    i2c_lcd_thread = threading.Thread(target=main_i2c_lcd.lcd_thread, args=(0, "lcd_thread"))
+    i2c_lcd_thread.start()
+    i2c_lcd_thread.join()
     while True:
         pass
 

@@ -4,6 +4,8 @@ import time as ti  # This to handle the time and datetime cannot used at the sam
 def sleep_seconds(seconds):
     ti.sleep(seconds)
 
+def time_string(str):
+    ti.strftime(str)
 
 from datetime import *
 
