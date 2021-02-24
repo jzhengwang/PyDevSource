@@ -1,6 +1,6 @@
 from io_driver_apis import lcd_driver_util
 from python_port_apis import platform_util_functions
-from python_port_apis.date_time_util_functions import sleep_seconds, time_string
+from python_port_apis.date_time_util_functions import *
 from common_utils import dbg_logging_util
 
 
@@ -50,8 +50,17 @@ class lcd_device_util:
         self.io_device.backlight(arg0)
         while True:
             sleep_seconds(1)
+            pc_time = seconds_of_Day()
+            pc_time -= 28800 # 8 Hours diff from GMT
+            if pc_time < 0:
+                pc_time += 86400 # seconds per day
+            if seconds_of_Day() > 79200: # 10:00PM
+                self.io_device.backlight(0)
+            if seconds_of_Day() > 25200: # 7:00 AM
+                self.io_device.backlight(1)
             self.logging.dbg_logging("INFO::{thread_name}:".format(thread_name=arg1))
             self.lcd_display_time()
+
 
 def initial_lcd_thread(cur_time):
     dbg_log_name = "../dbg_log/dbg_{file}log".format(file=__name__)
