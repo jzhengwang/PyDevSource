@@ -54,9 +54,9 @@ class lcd_device_util:
             pc_time -= 28800 # 8 Hours diff from GMT
             if pc_time < 0:
                 pc_time += 86400 # seconds per day
-            if seconds_of_Day() > 79200: # 10:00PM
+            if pc_time > 79200: # 10:00PM
                 self.io_device.backlight(0)
-            if seconds_of_Day() > 25200: # 7:00 AM
+            if pc_time > 25200: # 7:00 AM
                 self.io_device.backlight(1)
             self.logging.dbg_logging("INFO::{thread_name}:".format(thread_name=arg1))
             self.lcd_display_time()
