@@ -74,7 +74,7 @@ def docx_questions(fileName):
     # docfile = docx.opendocx(fileName)
     document = docx.Document(fileName)
     # docx2word_process(document)
-    image_dir = "..mage_folder/"
+    image_dir = "../mage_folder/"
     if not os.path.exists(os.path.dirname(image_dir)):
         while (True):
             try:
